@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pendataan Guru - KKG Kecamatan Mandirancan</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- SweetAlert2 CSS & JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        kkg: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printableArea, #printableArea * {
+                visibility: visible;
+            }
+            #printableArea {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                box-shadow: none !important;
+                border: none !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen py-6 px-3 sm:px-6 lg:px-8 text-slate-800">
+
+    <div class="max-w-4xl mx-auto">
+        
+        <!-- Header Banner -->
+        <div class="bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-800 rounded-t-2xl shadow-lg p-6 sm:p-8 text-white relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
+                <i class="fas fa-graduation-cap text-9xl"></i>
+            </div>
+            <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 relative z-10">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 bg-white/10 backdrop-blur-md rounded-2xl p-3 flex items-center justify-center border border-white/20 shadow-inner shrink-0">
+                    <i class="fas fa-book-open-reader text-4xl sm:text-5xl text-emerald-300"></i>
+                </div>
+                <div class="text-center sm:text-left">
+                    <span class="inline-block px-3 py-1 bg-emerald-500/30 backdrop-blur-md text-emerald-200 rounded-full text-xs font-semibold uppercase tracking-wider mb-2 border border-emerald-400/30">
+                        Sistem Pendataan Terpadu
+                    </span>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">KKG Kecamatan Mandirancan</h1>
+                    <p class="text-emerald-100 text-sm sm:text-base mt-1 max-w-xl">
+                        Formulir Pembaruan Data Guru Kelompok Kerja Guru (KKG) SD Kecamatan Mandirancan, Kabupaten Kuningan
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Body Card -->
+        <div class="bg-white rounded-b-2xl shadow-xl p-6 sm:p-10 border-x border-b border-slate-200/80">
+            
+            <!-- FORM UTAMA -->
+            <form id="guruForm" class="space-y-8">
+                
+                <!-- Section 1: Informasi Kepegawaian -->
+                <div>
+                    <div class="flex items-center space-x-3 mb-6 pb-2 border-b border-slate-200">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">1</div>
+                        <h2 class="text-lg font-bold text-slate-800">Informasi Kepegawaian & Identitas</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        
+                        <!-- Status Pegawai -->
+                        <div class="col-span-1 sm:col-span-2">
+                            <label for="statusPegawai" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Status Pegawai <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-id-badge"></i>
+                                </span>
+                                <select id="statusPegawai" name="statusPegawai" required
+                                    class="w-full pl-10 pr-10 py-3 bg-slate-50 border border-slate-300 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all text-sm appearance-none cursor-pointer">
+                                    <option value="" disabled selected>-- Pilih Status Pegawai --</option>
+                                    <option value="Honorer Murni">Honorer Murni</option>
+                                    <option value="GTT">GTT (Guru Tidak Tetap)</option>
+                                    <option value="GTY">GTY (Guru Tetap Yayasan)</option>
+                                    <option value="PPPK Paruh Waktu">PPPK Paruh Waktu</option>
+                                    <option value="PPPK Penuh Waktu">PPPK Penuh Waktu</option>
+                                    <option value="CPNS">CPNS</option>
+                                    <option value="PNS">PNS</option>
+                                </select>
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-chevron-down text-xs"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Nama Lengkap -->
+                        <div class="col-span-1 sm:col-span-2">
+                            <label for="namaLengkap" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Nama Lengkap & Gelar <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <input type="text" id="namaLengkap" name="namaLengkap" required
+                                    placeholder="Contoh: Ahmad Fauzi, S.Pd."
+                                    class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-300 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all text-sm">
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1">Isikan nama lengkap beserta gelar akademik lengkap.</p>
+                        </div>
+
+                        <!-- NIK -->
+                        <div>
+                            <label for="nik" class="block text-sm font-semibold text-slate-700 mb-2">
+                                NIK (16 Digit) <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-address-card"></i>
+                                </span>
+                                <input type="text" id="nik" name="nik" required maxlength="16"
+                                    placeholder="3208xxxxxxxxxxxx"
+                                    class="number-only w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-300 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all text-sm tracking-wider">
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1 flex justify-between">
+                                <span>Nomor Induk Kependudukan</span>
+                                <span id="nikCount" class="font-mono">0/16</span>
+                            </p>
+                        </div>
+
+                        <!-- NUPTK -->
+                        <div>
+                            <label for="nuptk" class="block text-sm font-semibold text-slate-700 mb-2">
+                                NUPTK (16 Digit) <span class="text-slate-400 font-normal">(Opsional)</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-fingerprint"></i>
+                                </span>
+                                <input type="text" id="nuptk" name="nuptk" maxlength="16"
+                                    placeholder="Kosongkan jika belum ada"
+                                    class="number-only w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-300 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all text-sm tracking-wider">
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1 flex justify-between">
+                                <span>Nomor Unik Pendidik</span>
+                                <span id="nuptkCount" class="font-mono">0/16</span>
+                            </p>
+                        </div>
+
+                        <!-- NIP (Dynamic Requirement) -->
+                        <div id="nipGroup" class="col-span-1 sm:col-span-2">
+                            <div class="flex items-center justify-between mb-2">
+                                <label for="nip" class="block text-sm font-semibold text-slate-700">
+                                    NIP (18 Digit) <span id="nipRequiredAsterisk" class="text-red-500 hidden">*</span>
+                                </label>
+                                <span id="nipStatusBadge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-200 text-slate-600">
+                                    Pilih Status Pegawai
+                                </span>
+                            </div>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-id-card-clip"></i>
+                                </span>
+                                <input type="text" id="nip" name="nip" maxlength="18" disabled
+                                    placeholder="Silakan pilih Status Pegawai terlebih dahulu"
+                                    class="number-only w-full pl-10 pr-4 py-3 bg-slate-100 border border-slate-300 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all text-sm tracking-wider disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed">
+                            </div>
+                            <p id="nipHelpText" class="text-xs text-slate-500 mt-1 flex justify-between">
+                                <span id="nipNote">Wajib bagi CPNS, PNS, dan PPPK.</span>
+                                <span id="nipCount" class="font-mono">0/18</span>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Section 2: Instansi & Tugas Mengajar -->
+                <div>
+                    <div class="flex items-center space-x-3 mb-6 pb-2 border-b border-slate-200">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">2</div>
+                        <h2 class="text-lg font-bold text-slate-800">Instansi, Tugas Mengajar & Email belajar.id</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        
+                        <!-- Instansi / Sekolah -->
+                        <div>
+                            <label for="instansi" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Instansi / Sekolah <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-school"></i>
+                                </span>
+                                <select id="instansi" name="instansi" required
+                                    class="w-full pl-10 pr-10 py-3 bg-slate-50 border border-slate-300 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all text-sm appearance-none cursor-pointer">
+                                    <option value="" disabled selected>-- Pilih Sekolah/Instansi --</option>
+                                    <option value="SDN Mandirancan">SDN Mandirancan</option>
+                                    <option value="SDN 2 Nanggela">SDN 2 Nangela</option>
+                                    <option value="SDN 1 Kertawinangun">SDN 1 Kertawinangun</option>
+                                    <option value="SDN 2 Kertawinangun">SDN 2 Kertawinangun</option>
+                                    <option value="SDN Seda">SDN Seda</option>
+                                    <option value="SDN 1 Nanggela">SDN 1 Nanggela</option>
+                                    <option value="SDN Nanggerangjaya">SDN Nanggerangjaya</option>
+                                    <option value="SDN Pakembangan">SDN Pakembangan</option>
+                                    <option value="SDN Trijaya">SDN Trijaya</option>
+	                                <option value="SDN Salakadomas">SDN Salakadomas</option>
+                                    <option value="SD Budi Bhakti">SD Budi Bhakti</option>
+                                    <option value="SDN Cirea">SDN Cirea</option>
+                                    <option value="SDN Sukasari">SDN Sukasari</option>
+                                    <option value="SDN Randobawailir">SDN Randobawailir</option>
+                                    <option value="SDN Randobawagirang">SDN Randobawagirang</option>
+                                    <option value="SD Swasta / Lainnya">SD Swasta / Lainnya di Mandirancan</option>
+                                </select>
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-chevron-down text-xs"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Mengajar Kelas / Mapel -->
+                        <div>
+                            <label for="mapel" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Mengajar Kelas / Mapel <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-chalkboard-user"></i>
+                                </span>
+                                <select id="mapel" name="mapel" required
+                                    class="w-full pl-10 pr-10 py-3 bg-slate-50 border border-slate-300 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all text-sm appearance-none cursor-pointer">
+                                    <option value="" disabled selected>-- Pilih Kelas / Mapel --</option>
+                                    <option value="Kelas 1">Guru Kelas 1</option>
+                                    <option value="Kelas 2">Guru Kelas 2</option>
+                                    <option value="Kelas 3">Guru Kelas 3</option>
+                                    <option value="Kelas 4">Guru Kelas 4</option>
+                                    <option value="Kelas 5">Guru Kelas 5</option>
+                                    <option value="Kelas 6">Guru Kelas 6</option>
+                                    <option value="Bahasa Inggris">Guru Bahasa Inggris</option>
+                                    <option value="PJOK">Guru PJOK</option>
+                                    <option value="PAIdBP">Guru PAIdBP</option>
+                                </select>
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-chevron-down text-xs"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Status Memiliki Email belajar.id -->
+                        <div>
+                            <label for="punyaEmailBelajar" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Sudah Punya Email belajar.id? <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-envelope-open-text"></i>
+                                </span>
+                                <select id="punyaEmailBelajar" name="punyaEmailBelajar" required
+                                    class="w-full pl-10 pr-10 py-3 bg-slate-50 border border-slate-300 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all text-sm appearance-none cursor-pointer">
+                                    <option value="Belum" selected>Belum</option>
+                                    <option value="Sudah">Sudah</option>
+                                </select>
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-chevron-down text-xs"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Alamat Email belajar.id (Dynamic Input) -->
+                        <div id="emailBelajarContainer" class="hidden">
+                            <label for="emailBelajar" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Alamat Email belajar.id <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-at"></i>
+                                </span>
+                                <input type="email" id="emailBelajar" name="emailBelajar"
+                                    placeholder="nama@guru.sd.belajar.id"
+                                    class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-300 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all text-sm">
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1">Isikan alamat akun email belajar.id resmi Anda.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Section 3: Sertifikasi TPG & Kontak -->
+                <div>
+                    <div class="flex items-center space-x-3 mb-6 pb-2 border-b border-slate-200">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">3</div>
+                        <h2 class="text-lg font-bold text-slate-800">Sertifikasi & Kontak</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        
+                        <!-- Status TPG -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">
+                                Status TPG (Sertifikasi) <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-certificate"></i>
+                                </span>
+                                <select id="tpg" name="tpg" required
+                                    class="w-full pl-10 pr-10 py-3 bg-slate-50 border border-slate-300 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all text-sm appearance-none cursor-pointer">
+                                    <option value="Belum TPG" selected>Belum TPG</option>
+                                    <option value="Sudah TPG">Sudah TPG</option>
+                                </select>
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-chevron-down text-xs"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- NRG (Conditional) -->
+                        <div id="nrgContainer" class="hidden">
+                            <label for="nrg" class="block text-sm font-semibold text-slate-700 mb-2">
+                                NRG (12 Digit) <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-award"></i>
+                                </span>
+                                <input type="text" id="nrg" name="nrg" maxlength="12"
+                                    placeholder="Nomor Registrasi Guru"
+                                    class="number-only w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-300 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all text-sm tracking-wider">
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1 flex justify-between">
+                                <span>Nomor Registrasi Guru</span>
+                                <span id="nrgCount" class="font-mono">0/12</span>
+                            </p>
+                        </div>
+
+                        <!-- No WhatsApp -->
+                        <div class="col-span-1 sm:col-span-2">
+                            <label for="noWa" class="block text-sm font-semibold text-slate-700 mb-2">
+                                No. WhatsApp Aktif <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                                    <i class="fab fa-whatsapp text-lg"></i>
+                                </span>
+                                <input type="tel" id="noWa" name="noWa" required
+                                    placeholder="Contoh: 081234567890"
+                                    class="number-only w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-300 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all text-sm">
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1">Pastikan nomor terhubung dengan akun WhatsApp aktif.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Section 4: Kepramukaan -->
+                <div>
+                    <div class="flex items-center space-x-3 mb-6 pb-2 border-b border-slate-200">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">4</div>
+                        <h2 class="text-lg font-bold text-slate-800">Kualifikasi Kepramukaan</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        
+                        <!-- Kursus Pramuka (Sudah / Belum) -->
+                        <div>
+                            <label for="kursusPramuka" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Kursus Pramuka <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-campground"></i>
+                                </span>
+                                <select id="kursusPramuka" name="kursusPramuka" required
+                                    class="w-full pl-10 pr-10 py-3 bg-slate-50 border border-slate-300 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all text-sm appearance-none cursor-pointer">
+                                    <option value="Belum" selected>Belum</option>
+                                    <option value="Sudah">Sudah</option>
+                                </select>
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-chevron-down text-xs"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Nama Kursus (Dropdown Dynamic) -->
+                        <div id="namaKursusContainer" class="hidden">
+                            <label for="namaKursus" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Nama Kursus Pramuka <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-medal"></i>
+                                </span>
+                                <select id="namaKursus" name="namaKursus"
+                                    class="w-full pl-10 pr-10 py-3 bg-slate-50 border border-slate-300 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all text-sm appearance-none cursor-pointer">
+                                    <option value="" disabled selected>-- Pilih Tingkat Kursus --</option>
+                                    <option value="KMD">KMD (Kursus Mahir Dasar)</option>
+                                    <option value="KML">KML (Kursus Mahir Lanjutan)</option>
+                                    <option value="KPD">KPD (Kursus Pelatih Dasar)</option>
+                                    <option value="KPL">KPL (Kursus Pelatih Lanjutan)</option>
+                                </select>
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-slate-400">
+                                    <i class="fas fa-chevron-down text-xs"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Section 5: Persetujuan / Pernyataan -->
+                <div class="pt-4 border-t border-slate-200">
+                    <div class="bg-amber-50 border border-amber-200/80 rounded-2xl p-4 sm:p-5">
+                        <label class="flex items-start space-x-3 cursor-pointer">
+                            <input type="checkbox" id="persetujuan" name="persetujuan" required
+                                class="mt-1 w-5 h-5 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 transition cursor-pointer">
+                            <span class="text-xs sm:text-sm text-amber-900 leading-relaxed">
+                                <strong class="font-semibold">Pernyataan Kebenaran Data:</strong> Saya menyatakan bahwa seluruh data yang saya isikan di atas adalah benar dan bersedia bertanggung jawab serta menyetujui pengisian form KKG Kecamatan Mandirancan ini.
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <div class="pt-4">
+                    <button type="submit" id="btnSubmit"
+                        class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center space-x-2 text-base">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Kirim Data Guru KKG</span>
+                    </button>
+                </div>
+
+            </form>
+
+            <!-- KARTU BUKTI ISI FORMULIR (Awalnya Disembunyikan) -->
+            <div id="buktiSection" class="hidden space-y-6 pt-2">
+                <div id="printableArea" class="bg-gradient-to-br from-emerald-50 via-white to-teal-50 border-2 border-emerald-500/40 rounded-2xl p-6 sm:p-8 shadow-md relative overflow-hidden">
+                    
+                    <!-- Watermark Icon (Hijau Terang & Jelas tapi Transparan) -->
+                    <div class="absolute right-4 bottom-4 text-emerald-600/[0.08] pointer-events-none text-9xl">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+
+                    <!-- Header Bukti -->
+                    <div class="text-center pb-6 border-b border-emerald-200 relative z-10">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-emerald-600 text-white rounded-full shadow-lg mb-3">
+                            <i class="fas fa-check text-2xl"></i>
+                        </div>
+                        <span class="block text-xs font-bold uppercase tracking-widest text-emerald-700">Bukti Pengisian Resmi</span>
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-800 mt-1">Pendataan Guru KKG Kecamatan Mandirancan</h2>
+                        <p class="text-xs text-slate-500 mt-1">Kabupaten Kuningan</p>
+                    </div>
+
+                    <!-- Detail Data -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6 text-sm relative z-10">
+                        <div class="bg-white/90 p-3.5 rounded-xl border border-emerald-100 shadow-sm">
+                            <span class="block text-xs text-slate-400 font-medium">Waktu Pengisian</span>
+                            <span id="bWaktu" class="font-semibold text-slate-800">-</span>
+                        </div>
+                        <div class="bg-white/90 p-3.5 rounded-xl border border-emerald-100 shadow-sm">
+                            <span class="block text-xs text-slate-400 font-medium">Status Pegawai</span>
+                            <span id="bStatus" class="font-semibold text-slate-800">-</span>
+                        </div>
+                        <div class="col-span-1 sm:col-span-2 bg-white/90 p-3.5 rounded-xl border border-emerald-100 shadow-sm">
+                            <span class="block text-xs text-slate-400 font-medium">Nama Lengkap & Gelar</span>
+                            <span id="bNama" class="font-bold text-emerald-800 text-base">-</span>
+                        </div>
+                        <div class="bg-white/90 p-3.5 rounded-xl border border-emerald-100 shadow-sm">
+                            <span class="block text-xs text-slate-400 font-medium">NIK</span>
+                            <span id="bNik" class="font-mono text-slate-800">-</span>
+                        </div>
+                        <div class="bg-white/90 p-3.5 rounded-xl border border-emerald-100 shadow-sm">
+                            <span class="block text-xs text-slate-400 font-medium">NIP</span>
+                            <span id="bNip" class="font-mono text-slate-800">-</span>
+                        </div>
+                        <div class="bg-white/90 p-3.5 rounded-xl border border-emerald-100 shadow-sm">
+                            <span class="block text-xs text-slate-400 font-medium">Instansi / Sekolah</span>
+                            <span id="bInstansi" class="font-semibold text-slate-800">-</span>
+                        </div>
+                        <div class="bg-white/90 p-3.5 rounded-xl border border-emerald-100 shadow-sm">
+                            <span class="block text-xs text-slate-400 font-medium">Tugas Mengajar</span>
+                            <span id="bMapel" class="font-semibold text-slate-800">-</span>
+                        </div>
+                        <div class="bg-white/90 p-3.5 rounded-xl border border-emerald-100 shadow-sm">
+                            <span class="block text-xs text-slate-400 font-medium">Email belajar.id</span>
+                            <span id="bEmail" class="font-semibold text-slate-800">-</span>
+                        </div>
+                        <div class="bg-white/90 p-3.5 rounded-xl border border-emerald-100 shadow-sm">
+                            <span class="block text-xs text-slate-400 font-medium">Status TPG & NRG</span>
+                            <span id="bTpg" class="font-semibold text-slate-800">-</span>
+                        </div>
+                        <div class="bg-white/90 p-3.5 rounded-xl border border-emerald-100 shadow-sm">
+                            <span class="block text-xs text-slate-400 font-medium">No. WhatsApp</span>
+                            <span id="bWa" class="font-semibold text-slate-800">-</span>
+                        </div>
+                        <div class="bg-white/90 p-3.5 rounded-xl border border-emerald-100 shadow-sm">
+                            <span class="block text-xs text-slate-400 font-medium">Kursus Pramuka</span>
+                            <span id="bPramuka" class="font-semibold text-slate-800">-</span>
+                        </div>
+                    </div>
+
+                    <!-- Footer Bukti -->
+                    <div class="text-center pt-4 border-t border-emerald-200 text-xs text-slate-500 relative z-10">
+                        <p class="font-medium text-emerald-800">Data Anda telah berhasil tersimpan di Database KKG Mandirancan.</p>
+                        <p class="mt-1">Simpan halaman atau cetak bukti ini sebagai tanda bukti yang sah.</p>
+                    </div>
+
+                </div>
+
+                <!-- Tombol Aksi Bukti (Termasuk Tombol Kirim ke WhatsApp) -->
+                <div class="flex flex-col sm:flex-row gap-3 no-print">
+                    <button type="button" id="btnSendWa"
+                        class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3.5 px-6 rounded-xl shadow transition-all flex items-center justify-center space-x-2 text-sm">
+                        <i class="fab fa-whatsapp text-lg"></i>
+                        <span>Kirim Bukti ke WhatsApp</span>
+                    </button>
+                    <button type="button" onclick="window.print()"
+                        class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl shadow transition-all flex items-center justify-center space-x-2 text-sm">
+                        <i class="fas fa-print"></i>
+                        <span>Cetak / PDF</span>
+                    </button>
+                    <button type="button" id="btnResetForm"
+                        class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3.5 px-6 rounded-xl shadow transition-all flex items-center justify-center space-x-2 text-sm">
+                        <i class="fas fa-rotate-right"></i>
+                        <span>Isi Form Lainnya</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-6 text-xs text-slate-500">
+            <p>&copy; 2026 KKG SD Kecamatan Mandirancan, Kab. Kuningan. All rights reserved.</p>
+        </div>
+
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Variable Global untuk Simpan Payload Terakhir
+            let currentPayload = null;
+
+            // Restriksi Hanya Angka untuk Input Tertentu
+            const numberInputs = document.querySelectorAll('.number-only');
+            numberInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                });
+            });
+
+            // Counter Karakter Digit Realtime
+            function setupCounter(inputId, counterId, maxLen) {
+                const inputEl = document.getElementById(inputId);
+                const counterEl = document.getElementById(counterId);
+                if (inputEl && counterEl) {
+                    inputEl.addEventListener('input', function() {
+                        counterEl.textContent = `${this.value.length}/${maxLen}`;
+                    });
+                }
+            }
+
+            setupCounter('nik', 'nikCount', 16);
+            setupCounter('nuptk', 'nuptkCount', 16);
+            setupCounter('nip', 'nipCount', 18);
+            setupCounter('nrg', 'nrgCount', 12);
+
+            // Dynamically Handle Status Pegawai -> NIP Requirement (Dikunci untuk Honorer Murni, GTT, GTY)
+            const statusPegawaiSelect = document.getElementById('statusPegawai');
+            const nipInput = document.getElementById('nip');
+            const nipAsterisk = document.getElementById('nipRequiredAsterisk');
+            const nipBadge = document.getElementById('nipStatusBadge');
+            const nipNote = document.getElementById('nipNote');
+
+            statusPegawaiSelect.addEventListener('change', function() {
+                const val = this.value;
+                const isHonorerOrGttGty = ['Honorer Murni', 'GTT', 'GTY'].includes(val);
+
+                if (isHonorerOrGttGty) {
+                    nipInput.disabled = true;
+                    nipInput.required = false;
+                    nipInput.value = ''; // Kosongkan nilai NIP jika dikunci
+                    document.getElementById('nipCount').textContent = '0/18';
+                    nipInput.placeholder = "Tidak wajib / Tidak memiliki NIP";
+                    nipInput.classList.remove('bg-slate-50');
+                    nipInput.classList.add('bg-slate-100', 'disabled:cursor-not-allowed');
+                    nipAsterisk.classList.add('hidden');
+
+                    nipBadge.textContent = 'Tidak Wajib';
+                    nipBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-200 text-slate-600';
+                    nipNote.textContent = `Tidak wajib diisi untuk status ${val}`;
+                } else {
+                    nipInput.disabled = false;
+                    nipInput.required = true;
+                    nipInput.placeholder = "Masukkan 18 digit NIP Anda";
+                    nipInput.classList.remove('bg-slate-100', 'disabled:cursor-not-allowed');
+                    nipInput.classList.add('bg-slate-50');
+                    nipAsterisk.classList.remove('hidden');
+
+                    nipBadge.textContent = 'Wajib Diisi';
+                    nipBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-700';
+                    nipNote.textContent = `Wajib diisi 18 digit untuk status ${val}`;
+                }
+            });
+
+            // Dynamically Handle Email belajar.id -> Alamat Email
+            const emailBelajarSelect = document.getElementById('punyaEmailBelajar');
+            const emailBelajarContainer = document.getElementById('emailBelajarContainer');
+            const emailBelajarInput = document.getElementById('emailBelajar');
+
+            emailBelajarSelect.addEventListener('change', function() {
+                if (this.value === 'Sudah') {
+                    emailBelajarContainer.classList.remove('hidden');
+                    emailBelajarInput.required = true;
+                } else {
+                    emailBelajarContainer.classList.add('hidden');
+                    emailBelajarInput.required = false;
+                    emailBelajarInput.value = '';
+                }
+            });
+
+            // Dynamically Handle TPG -> NRG
+            const tpgSelect = document.getElementById('tpg');
+            const nrgContainer = document.getElementById('nrgContainer');
+            const nrgInput = document.getElementById('nrg');
+
+            tpgSelect.addEventListener('change', function() {
+                if (this.value === 'Sudah TPG') {
+                    nrgContainer.classList.remove('hidden');
+                    nrgInput.required = true;
+                } else {
+                    nrgContainer.classList.add('hidden');
+                    nrgInput.required = false;
+                    nrgInput.value = '';
+                }
+            });
+
+            // Dynamically Handle Kursus Pramuka -> Nama Kursus
+            const pramukaSelect = document.getElementById('kursusPramuka');
+            const namaKursusContainer = document.getElementById('namaKursusContainer');
+            const namaKursusSelect = document.getElementById('namaKursus');
+
+            pramukaSelect.addEventListener('change', function() {
+                if (this.value === 'Sudah') {
+                    namaKursusContainer.classList.remove('hidden');
+                    namaKursusSelect.required = true;
+                } else {
+                    namaKursusContainer.classList.add('hidden');
+                    namaKursusSelect.required = false;
+                    namaKursusSelect.value = '';
+                }
+            });
+
+            // Submit Form Event Handler
+            document.getElementById('guruForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Validasi panjang digit NIK
+                const nikVal = document.getElementById('nik').value;
+                if (nikVal.length !== 16) {
+                    Swal.fire('Validasi Gagal', 'NIK harus tepat 16 digit angka.', 'warning');
+                    return;
+                }
+
+                // Validasi panjang digit NIP (jika form NIP aktif/wajib diisi)
+                const nipVal = document.getElementById('nip').value;
+                if (!nipInput.disabled && nipVal.length !== 18) {
+                    Swal.fire('Validasi Gagal', 'NIP harus tepat 18 digit angka.', 'warning');
+                    return;
+                }
+
+                // Validasi panjang digit NUPTK
+                const nuptkVal = document.getElementById('nuptk').value;
+                if (nuptkVal.length > 0 && nuptkVal.length !== 16) {
+                    Swal.fire('Validasi Gagal', 'Jika diisi, NUPTK harus tepat 16 digit angka.', 'warning');
+                    return;
+                }
+
+                // Validasi panjang digit NRG
+                const nrgVal = document.getElementById('nrg').value;
+                if (tpgSelect.value === 'Sudah TPG' && nrgVal.length !== 12) {
+                    Swal.fire('Validasi Gagal', 'NRG harus tepat 12 digit angka.', 'warning');
+                    return;
+                }
+
+                // Data Payload
+                formPayload = {
+                    statusPegawai: statusPegawaiSelect.value,
+                    namaLengkap: document.getElementById('namaLengkap').value,
+                    nik: nikVal,
+                    nuptk: nuptkVal,
+                    nip: nipInput.disabled ? '-' : nipVal, 
+                    instansi: document.getElementById('instansi').value,
+                    mapel: document.getElementById('mapel').value,
+                    punyaEmailBelajar: emailBelajarSelect.value,
+                    emailBelajar: emailBelajarSelect.value === 'Sudah' ? emailBelajarInput.value : 'Belum Punya',
+                    tpg: tpgSelect.value,
+                    nrg: tpgSelect.value === 'Sudah TPG' ? nrgVal : '-',
+                    noWa: document.getElementById('noWa').value,
+                    kursusPramuka: pramukaSelect.value,
+                    namaKursus: pramukaSelect.value === 'Sudah' ? namaKursusSelect.value : 'Belum'
+                };
+
+                currentPayload = formPayload;
+
+                // SweetAlert2 Konfirmasi
+                Swal.fire({
+                    title: 'Konfirmasi Pengiriman',
+                    html: `<div class="text-left text-sm space-y-1">
+                        <p><strong>Nama:</strong> ${formPayload.namaLengkap}</p>
+                        <p><strong>Status:</strong> ${formPayload.statusPegawai}</p>
+                        <p><strong>Instansi:</strong> ${formPayload.instansi}</p>
+                        <p><strong>Mengajar:</strong> ${formPayload.mapel}</p>
+                        <p><strong>Email belajar.id:</strong> ${formPayload.emailBelajar}</p>
+                    </div><br>Apakah Anda yakin data di atas sudah benar?`,
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#16a34a',
+                    cancelButtonColor: '#6b7280',
+                    confirmButtonText: '<i class="fas fa-paper-plane mr-1"></i> Ya, Kirim Data',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: 'Menyimpan Data...',
+                            text: 'Mohon tunggu sebentar, data Anda sedang dikirim ke database.',
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+
+                        // GANTI URL DI BAWAH DENGAN URL APPS SCRIPT ANDA
+                        const scriptURL = 'https://script.google.com/macros/s/AKfycbx2QYJSnGEqF-Mg8VV9d7HAZgwKRLXjRsPflbbT5OEVCbYSrSp_Yv1XzmwsQ6AjpSSc/exec';
+
+                        fetch(scriptURL, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(formPayload)
+                        })
+                        .then(() => {
+                            Swal.close(); // Tutup loading
+
+                            // Tampilkan Data ke Kartu Bukti
+                            const now = new Date();
+                            document.getElementById('bWaktu').textContent = now.toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'medium' });
+                            document.getElementById('bStatus').textContent = formPayload.statusPegawai;
+                            document.getElementById('bNama').textContent = formPayload.namaLengkap;
+                            document.getElementById('bNik').textContent = formPayload.nik;
+                            document.getElementById('bNip').textContent = formPayload.nip;
+                            document.getElementById('bInstansi').textContent = formPayload.instansi;
+                            document.getElementById('bMapel').textContent = formPayload.mapel;
+                            document.getElementById('bEmail').textContent = formPayload.emailBelajar;
+                            document.getElementById('bTpg').textContent = `${formPayload.tpg} ${formPayload.nrg !== '-' ? '(NRG: ' + formPayload.nrg + ')' : ''}`;
+                            document.getElementById('bWa').textContent = formPayload.noWa;
+                            document.getElementById('bPramuka').textContent = `${formPayload.kursusPramuka} ${formPayload.namaKursus !== 'Belum' ? '(' + formPayload.namaKursus + ')' : ''}`;
+
+                            // Sembunyikan form utama, tampilkan bagian bukti
+                            document.getElementById('guruForm').classList.add('hidden');
+                            document.getElementById('buktiSection').classList.remove('hidden');
+
+                            // Scroll halus ke area bukti
+                            document.getElementById('buktiSection').scrollIntoView({ behavior: 'smooth' });
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal Menyimpan',
+                                text: 'Terjadi kesalahan saat mengirim data. Silakan coba lagi.',
+                                confirmButtonColor: '#ef4444'
+                            });
+                        });
+                    }
+                });
+            });
+
+            // Tombol Kirim Bukti ke WhatsApp
+            document.getElementById('btnSendWa').addEventListener('click', function() {
+                if (!currentPayload) return;
+
+                // Format Nomor WhatsApp (Mengubah 08xx menjadi 628xx)
+                let phone = currentPayload.noWa.replace(/[^0-9]/g, '');
+                if (phone.startsWith('0')) {
+                    phone = '62' + phone.slice(1);
+                }
+
+                // Teks Pesan Bukti WhatsApp
+                const textMessage = `*BUKTI PENGISIAN PENDATAAN GURU KKG*
+----------------------------------------
+*KKG SD Kecamatan Mandirancan*
+_Kabupaten Kuningan_
+----------------------------------------
+? *Status Data:* Berhasil Disimpan
+
+?? *RINCIAN DATA:*
+• *Nama Lengkap:* ${currentPayload.namaLengkap}
+• *Status Pegawai:* ${currentPayload.statusPegawai}
+• *NIK:* ${currentPayload.nik}
+• *NIP:* ${currentPayload.nip}
+• *Instansi/Sekolah:* ${currentPayload.instansi}
+• *Mengajar:* ${currentPayload.mapel}
+• *Email belajar.id:* ${currentPayload.emailBelajar}
+• *Status TPG:* ${currentPayload.tpg} ${currentPayload.nrg !== '-' ? '(NRG: ' + currentPayload.nrg + ')' : ''}
+• *No. WhatsApp:* ${currentPayload.noWa}
+• *Kursus Pramuka:* ${currentPayload.kursusPramuka} ${currentPayload.namaKursus !== 'Belum' ? '(' + currentPayload.namaKursus + ')' : ''}
+
+----------------------------------------
+_Pesan ini dibuat secara otomatis sebagai bukti sah pengisian formulir KKG Mandirancan._`;
+
+                // Buka WhatsApp Web / App
+                const waUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(textMessage)}`;
+                window.open(waUrl, '_blank');
+            });
+
+            // Tombol Reset Form dari Halaman Bukti
+            document.getElementById('btnResetForm').addEventListener('click', function() {
+                document.getElementById('guruForm').reset();
+                emailBelajarContainer.classList.add('hidden');
+                nrgContainer.classList.add('hidden');
+                namaKursusContainer.classList.add('hidden');
+                currentPayload = null;
+                
+                // Reset state NIP ke awal
+                nipInput.disabled = true;
+                nipInput.classList.remove('bg-slate-50');
+                nipInput.classList.add('bg-slate-100', 'disabled:cursor-not-allowed');
+                nipBadge.textContent = 'Pilih Status Pegawai';
+                nipBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-200 text-slate-600';
+                nipAsterisk.classList.add('hidden');
+                nipNote.textContent = 'Wajib bagi CPNS, PNS, dan PPPK.';
+
+                // Reset counters
+                document.getElementById('nikCount').textContent = '0/16';
+                document.getElementById('nuptkCount').textContent = '0/16';
+                document.getElementById('nipCount').textContent = '0/18';
+                document.getElementById('nrgCount').textContent = '0/12';
+
+                // Tampilkan form lagi, sembunyikan bukti
+                document.getElementById('buktiSection').classList.add('hidden');
+                document.getElementById('guruForm').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+        });
+    </script>
+</body>
+</html>
